@@ -7,6 +7,7 @@ section .data
     choice_length equ $-choice
     operator db "1) Addition",0dh,0ah, "2) Subtraction", 0dh, 0ah, "3) Multiplication", odh, 0ah, "4) Division" odh, 0ah, "5) Exit",10
     operator_length equ $-operator
+    tmp db 0,0
 section .text
 
 _start:
@@ -39,3 +40,10 @@ operators:
     mov rdx operator_length
     syscall
     ret
+
+get_input:
+    mov rax, 0 ;set to read
+    mov rdi, 0 ;set to stdin
+    mov rsi, tmp 
+    mov rdx, 2 ;2 bytes allocated, 1 for number, 1 for newline
+    syscall
