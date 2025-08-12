@@ -8,15 +8,36 @@ section .data
     operator db "1) Addition",0dh,0ah, "2) Subtraction", 0dh, 0ah, "3) Multiplication", odh, 0ah, "4) Division" odh, 0ah, "5) Exit",10
     operator_length equ $-operator
     tmp db 0,0
+    first_number db "Enter first number", 0dh, 0ah
+    first_number_length equ $-first_number
+    second_number db "Enter second number", 0dh, 0ah
+    second_number_length equ $-second_number
+
 section .text
 
 _start:
+        
 
 LOOP:
     call welcome_message
     call get_choice
     call operators
-
+    
+    cmp byte[rsi], '1'
+    je Add
+    
+    cmp byte[rsi], '2'
+    je Subtract
+    
+    cmp byte[rsi], '3'
+    je Multiply
+    
+    cmp byte[rsi], '4'
+    je Divide
+    
+    cmp byte[rsi], '5'
+    je Exit
+    
 welcome_message:
     mov rax, 0x1 ;set to write
     mov rdi, 1 ;set to stdout
@@ -47,3 +68,12 @@ get_input:
     mov rsi, tmp 
     mov rdx, 2 ;2 bytes allocated, 1 for number, 1 for newline
     syscall
+
+Add:
+    mov rax, 0x1
+    mov rdi, 1
+    mov rsi, first_number
+    mov rdx, first_number_length
+    syscall
+
+    
