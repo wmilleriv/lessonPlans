@@ -81,6 +81,8 @@ Add:
     mov rsi, first_temp ;   
     mov rdx, 2
     syscall
+
+    mov r8, first_temp
     
     mov rax, 0x1
     mov rdi, 1
@@ -93,3 +95,8 @@ Add:
     mov rsi, second_temp ;   
     mov rdx, 2
     syscall
+
+    mov r9, second_temp
+
+    push r8
+    push r9 ;move registers holding values to stack
