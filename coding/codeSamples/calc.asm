@@ -22,7 +22,12 @@ LOOP:
     call welcome_message
     call get_choice
     call operators
-    
+    call get_input
+    call compare_input
+    lmp LOOP
+
+
+compare_input:    
     cmp byte[rsi], '1'
     je Add
     
@@ -100,3 +105,18 @@ Add:
 
     push r8
     push r9 ;move registers holding values to stack
+
+    mov r8, [first_temp]
+    mov r9, [second_temp]
+
+    sub r8, 48
+    sub r9, 48
+
+    mov r10, r8
+    add r10, r9
+
+    pop r9
+    pop r8
+
+    add r10, 48
+
