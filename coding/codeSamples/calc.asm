@@ -5,14 +5,15 @@ section .data
     welcome_length equ $-welcome
     choice db "Please enter your selection", 0dh, 0ah
     choice_length equ $-choice
-    operator db "1) Addition",0dh,0ah, "2) Subtraction", 0dh, 0ah, "3) Multiplication", odh, 0ah, "4) Division" odh, 0ah, "5) Exit",10
+    operator db "1)Add", 0dh,0ah, "2)Subtract", 0dh, 0ah, "3)Multiply", 0dh, 0ah, "4)Divide", 0dh, 0ah, "5)Exit", 10
     operator_length equ $-operator
     tmp db 0,0
     first_number db "Enter first number", 0dh, 0ah
     first_number_length equ $-first_number
     second_number db "Enter second number", 0dh, 0ah
     second_number_length equ $-second_number
-
+    first_temp db 0,0
+    second_temp db 0,0
 section .text
 
 _start:
@@ -24,7 +25,7 @@ LOOP:
     call operators
     call get_input
     call compare_input
-    lmp LOOP
+    jmp LOOP
 
 
 compare_input:    
@@ -49,7 +50,7 @@ welcome_message:
     mov rsi, welcome ;add string to register
     mov rdx, welcome_length ;set string length
     syscall
-    ret `;return
+    ret ;return
 
 get_choice:
     mov rax, 0x1
@@ -63,7 +64,7 @@ operators:
     mov rax, 0x1
     mov rdi, 1
     mov rsi, operator
-    mov rdx operator_length
+    mov rdx, operator_length
     syscall
     ret
 
@@ -91,7 +92,7 @@ Add:
     
     mov rax, 0x1
     mov rdi, 1
-    mov rsi, second__number
+    mov rsi, second_number
     mov rdx, second_number_length
     syscall
 
@@ -119,4 +120,13 @@ Add:
     pop r8
 
     add r10, 48
+
+Subtract:
+
+Multiply:
+
+Divide:
+
+Exit:
+
 
