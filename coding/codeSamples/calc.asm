@@ -76,4 +76,20 @@ Add:
     mov rdx, first_number_length
     syscall
 
+    mov rax, 0
+    mov rdi, 0 
+    mov rsi, first_temp ;   
+    mov rdx, 2
+    syscall
     
+    mov rax, 0x1
+    mov rdi, 1
+    mov rsi, second__number
+    mov rdx, second_number_length
+    syscall
+
+    mov rax, 0
+    mov rdi, 0 
+    mov rsi, second_temp ;   
+    mov rdx, 2
+    syscall
