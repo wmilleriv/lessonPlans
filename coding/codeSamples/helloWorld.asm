@@ -1,18 +1,15 @@
-
-global _start
-.section .data
-	hello db "Hello, World!",0dh,0ah    ; 'Hello, World!' plus a linefeed character
-	hello_length  equ $-hello             ; Length of the 'Hello world!' string
-
 .section .text
-
+    .global _start
 _start:
-	mov eax,4            ; The system call for write (sys_write)
-	mov ebx,1            ; File descriptor 1 - standard output
-	mov ecx,hello        ; Put the offset of hello in ecx
-	mov edx,helloLen     ; helloLen is a constant, so we don't need to say
-	                     ;  mov edx,[helloLen] to get it's actual value
-	int 80h              ; Call the kernel
-	mov eax,1            ; The system call for exit (sys_exit)
-	mov ebx,0            ; Exit with return "code" of 0 (no error)
-	int 80h;
+    mov $4,%rax
+    mov $1,%rbx
+    mov $message,%ecx
+    mov msglength,%edx
+    int  $0x80
+
+    mov $1, %rax
+    mov $0, %ebx
+    int $0x80
+.section .data
+    message db "Hello world!", 0dh, 0ah
+    msglength: equ $-message
