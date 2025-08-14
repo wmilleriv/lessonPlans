@@ -14,6 +14,12 @@ section .data
     second_number_length equ $-second_number
     first_temp db 0,0
     second_temp db 0,0
+    answer db "Answer: ", 0dh, 0ah
+    answer_length equ $-answer
+    plus db " + ", 0dh, 0ah
+    plus_length equ $-plus
+    equals db " = ", 0dh, 0ah
+    equals_length equ $-equals
 section .text
 
 _start:
@@ -120,6 +126,46 @@ Add:
     pop r8
 
     add r10, 48
+    
+    mov rax, 0x1
+    mov rdi, 1
+    mov rsi, answer
+    mov rdx, answer_length
+    syscall
+
+    mov rax, 0x1
+    mov rdi, 1
+    mov rsi, r8
+    mov rdx, 1
+    syscall
+
+    mov rax, 0x1
+    mov rdi, 1
+    mov rsi, plus
+    mov rdx, plus_length
+    syscall
+
+    mov rax, 0x1
+    mov rdi, 1
+    mov rsi, r9
+    mov rdx, 1
+    syscall
+
+    mov rax, 0x1
+    mov rdi, 1
+    mov rsi, equals
+    mov rdx, equals_length
+    syscall
+    
+    mov [rsp+8], r10    
+
+    mov rax, 0x1
+    mov rdi, 1
+    lea rsi, [rsp+8]
+    mov rdx, 1
+    syscall
+
+    jmp LOOP
 
 Subtract:
 
