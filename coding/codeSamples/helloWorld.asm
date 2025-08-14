@@ -1,9 +1,10 @@
-section .data
-	hello:     db 'Hello, World!',10    ; 'Hello, World!' plus a linefeed character
-	helloLen:  equ $-hello             ; Length of the 'Hello world!' string
 
-section .text
-	global _start
+global _start
+.section .data
+	hello db "Hello, World!",0dh,0ah    ; 'Hello, World!' plus a linefeed character
+	hello_length  equ $-hello             ; Length of the 'Hello world!' string
+
+.section .text
 
 _start:
 	mov eax,4            ; The system call for write (sys_write)
