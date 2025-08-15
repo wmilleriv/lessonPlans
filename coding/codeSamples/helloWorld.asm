@@ -1,16 +1,17 @@
-.data
-hello:
-    .string "Hello world!\n"
+.global _start
 
-.text
-.globl _start
+.section .data
+message:  "Hello World" 0dh,0ah
+
+.section .text
 _start:
-    movl $4, %eax # write(1, hello, strlen(hello))
-    movl $1, %ebx
-    movl $hello, %ecx
-    movl $13, %edx
-    int  $0x80
+    mov $1, %rax
+    mov $1, %rdi
+    mov $message, %rsi
+    mov $15, %rdx
+    syscall
+        
+    mov $60, %rax
+    mov $0, %rdi
+    syscall
 
-    movl $1, %eax # exit(0)
-    movl $0, %ebx
-    int  $0x80
