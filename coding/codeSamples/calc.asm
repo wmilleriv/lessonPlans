@@ -1,18 +1,26 @@
-.global _start
+global _start
 
-.section .data
-    welcome: .ascii " Hello \n"
-    choice: .ascii  "Please enter your selection\n"
-    operator: .ascii "1)Add\n 2)Subtract\n 3)Multiply\n 4)Divide\n 5)Exit\n"
-    tmp: .ascii
-    first_number: .ascii "Enter first number\n"
-    second_number: .ascii "Enter second number\n"
-    first_temp: .ascii 
-    second_temp: .ascii 
-    answer: .ascii "Answer: \n"
-    plus: .ascii " + \n"
-    equals: .ascii " = \n"
-.section .text
+section .data
+    welcome db " Hello \n"
+    welcome_length equ $-welcome
+    choice db  "Please enter your selection\n"
+    choice_length equ $-choice
+    operator db "1)Add\n 2)Subtract\n 3)Multiply\n 4)Divide\n 5)Exit\n"
+    operator_length equ $-operator
+    tmp db 0,0
+    first_number db "Enter first number\n"
+    first_number_length equ $-first_number
+    second_number db "Enter second number\n"
+    second_number_length equ $-second_number
+    first_temp db 0,0 
+    second_temp db 0,0 
+    answer db "Answer: \n"
+    answer_length equ $-answer
+    plus db " + \n"
+    plus_length equ $-plus
+    equals db " = \n"
+    equals_length equ $-equals
+section .text
 
 _start:
         
