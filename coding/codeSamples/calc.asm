@@ -4,11 +4,11 @@
     welcome: .ascii " Hello \n"
     choice: .ascii  "Please enter your selection\n"
     operator: .ascii "1)Add\n 2)Subtract\n 3)Multiply\n 4)Divide\n 5)Exit\n"
-    tmp: db 0,0
+    tmp: .ascii
     first_number: .ascii "Enter first number\n"
     second_number: .ascii "Enter second number\n"
-    first_temp: db 0,0
-    second_temp: db 0,0
+    first_temp: .ascii 
+    second_temp: .ascii 
     answer: .ascii "Answer: \n"
     plus: .ascii " + \n"
     equals: .ascii " = \n"
@@ -24,7 +24,6 @@ LOOP:
     call get_input
     call compare_input
     jmp LOOP
-
 
 compare_input:    
     cmp byte[rsi], '1'
