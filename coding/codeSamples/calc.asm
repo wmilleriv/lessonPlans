@@ -1,24 +1,24 @@
 global _start
 
 section .data
-    welcome db " Hello \n"
+    welcome db 0dh, 0ah, 0dh, 0ah, " Hello ", 0dh, 0ah, 0dh, 0ah
     welcome_length equ $-welcome
-    choice db  "Please enter your selection\n"
+    choice db  "Please enter your selection", 0dh, 0ah
     choice_length equ $-choice
-    operator db "1)Add\n 2)Subtract\n 3)Multiply\n 4)Divide\n 5)Exit\n"
+    operator db "1)Add", 0dh, 0ah, "2)Subtract",0dh, 0ah, "3)Multiply", 0dh, 0ah, "4)Divide", 0dh, 0ah, "5)Exit", 0dh, 0ah
     operator_length equ $-operator
     tmp db 0,0
-    first_number db "Enter first number\n"
+    first_number db "Enter first number", 0dh, 0ah
     first_number_length equ $-first_number
-    second_number db "Enter second number\n"
+    second_number db "Enter second number", 0dh, 0ah
     second_number_length equ $-second_number
     first_temp db 0,0 
     second_temp db 0,0 
-    answer db "Answer: \n"
+    answer db "Answer: ", 0dh, 0ah
     answer_length equ $-answer
-    plus db " + \n"
+    plus db " + "
     plus_length equ $-plus
-    equals db " = \n"
+    equals db " = " 
     equals_length equ $-equals
 section .text
 
