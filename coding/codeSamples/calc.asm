@@ -18,6 +18,8 @@ section .data
     answer_length equ $-answer
     plus db " + "
     plus_length equ $-plus
+    minus db " - "
+    minus_length equ $-minus
     equals db " = " 
     equals_length equ $-equals
 section .text
@@ -168,10 +170,194 @@ Add:
 
 Subtract:
 
+    mov rax, 0x1
+    mov rdi, 1
+    mov rsi, first_number
+    mov rdx, first_number_length
+    syscall
+
+    mov rax, 0
+    mov rdi, 0 
+    mov rsi, first_temp ;   
+    mov rdx, 2
+    syscall
+
+    mov r8, first_temp
+    
+    mov rax, 0x1
+    mov rdi, 1
+    mov rsi, second_number
+    mov rdx, second_number_length
+    syscall
+
+    mov rax, 0
+    mov rdi, 0 
+    mov rsi, second_temp ;   
+    mov rdx, 2
+    syscall
+
+    mov r9, second_temp
+
+    push r8
+    push r9 ;move registers holding values to stack
+
+    mov r8, [first_temp]
+    mov r9, [second_temp]
+
+    sub r8, 48
+    sub r9, 48
+
+    mov r10, r8
+    sub r10, r9
+
+    pop r9
+    pop r8
+
+    add r10, 48
+    
+    mov rax, 0x1
+    mov rdi, 1
+    mov rsi, answer
+    mov rdx, answer_length
+    syscall
+
+    mov rax, 0x1
+    mov rdi, 1
+    mov rsi, r8
+    mov rdx, 1
+    syscall
+
+    mov rax, 0x1
+    mov rdi, 1
+    mov rsi, minus
+    mov rdx, minus_length
+    syscall
+
+    mov rax, 0x1
+    mov rdi, 1
+    mov rsi, r9
+    mov rdx, 1
+    syscall
+
+    mov rax, 0x1
+    mov rdi, 1
+    mov rsi, equals
+    mov rdx, equals_length
+    syscall
+    
+    mov [rsp+8], r10    
+
+    mov rax, 0x1
+    mov rdi, 1
+    lea rsi, [rsp+8]
+    mov rdx, 1
+    syscall
+
+    jmp LOOP
+
 Multiply:
 
-Divide:
+    mov rax, 0x1
+    mov rdi, 1
+    mov rsi, first_number
+    mov rdx, first_number_length
+    syscall
 
+    mov rax, 0
+    mov rdi, 0 
+    mov rsi, first_temp ;   
+    mov rdx, 2
+    syscall
+
+    mov r8, first_temp
+    
+    mov rax, 0x1
+    mov rdi, 1
+    mov rsi, second_number
+    mov rdx, second_number_length
+    syscall
+
+    mov rax, 0
+    mov rdi, 0 
+    mov rsi, second_temp ;   
+    mov rdx, 2
+    syscall
+
+    mov r9, second_temp
+
+    push r8
+    push r9 ;move registers holding values to stack
+
+    mov r8, [first_temp]
+    mov r9, [second_temp]
+
+    sub r8, 48
+    sub r9, 48
+
+    mov r10, r8
+    add r10, r9
+
+    pop r9
+    pop r8
+
+    add r10, 48
+    
+    mov rax, 0x1
+    mov rdi, 1
+    mov rsi, answer
+    mov rdx, answer_length
+    syscall
+Divide:
+    mov rax, 0x1
+    mov rdi, 1
+    mov rsi, first_number
+    mov rdx, first_number_length
+    syscall
+
+    mov rax, 0
+    mov rdi, 0 
+    mov rsi, first_temp ;   
+    mov rdx, 2
+    syscall
+
+    mov r8, first_temp
+    
+    mov rax, 0x1
+    mov rdi, 1
+    mov rsi, second_number
+    mov rdx, second_number_length
+    syscall
+
+    mov rax, 0
+    mov rdi, 0 
+    mov rsi, second_temp ;   
+    mov rdx, 2
+    syscall
+
+    mov r9, second_temp
+
+    push r8
+    push r9 ;move registers holding values to stack
+
+    mov r8, [first_temp]
+    mov r9, [second_temp]
+
+    sub r8, 48
+    sub r9, 48
+
+    mov r10, r8
+    add r10, r9
+
+    pop r9
+    pop r8
+
+    add r10, 48
+    
+    mov rax, 0x1
+    mov rdi, 1
+    mov rsi, answer
+    mov rdx, answer_length
+    syscall
 Exit:
 
 
