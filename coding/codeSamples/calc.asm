@@ -20,6 +20,8 @@ section .data
     plus_length equ $-plus
     minus db " - "
     minus_length equ $-minus
+    times db " * "
+    times_length equ $-times
     equals db " = " 
     equals_length equ $-equals
 section .text
@@ -295,7 +297,7 @@ Multiply:
     sub r9, 48
 
     mov r10, r8
-    add r10, r9
+    imul r10, r9
 
     pop r9
     pop r8
