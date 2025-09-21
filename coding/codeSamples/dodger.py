@@ -23,7 +23,7 @@ while running:
     if keys[pygame.K_w]:
         player_pos.y-=300*dt
     if keys[pygame.K_s]:
-        player_pos.y+-300*dt
+        player_pos.y+=300*dt
     if keys[pygame.K_a]:
         player_pos.x-=300*dt
     if keys[pygame.K_d]:
@@ -31,6 +31,6 @@ while running:
 
     pygame.display.flip()
 
-    dt=clock.tick(60)_/1000
+    dt=clock.tick(60)/1000
 
 pygame.quit()
