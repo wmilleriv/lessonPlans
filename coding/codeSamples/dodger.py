@@ -54,7 +54,7 @@ class Dodger():
 class Enemy(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.draw.rect[
+        self.image = pygame.draw.rect[surface, 
 
     def draw(self, surface):
         surface.blit(self.image, self.rect)
