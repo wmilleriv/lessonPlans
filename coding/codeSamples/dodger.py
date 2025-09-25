@@ -54,21 +54,7 @@ class Dodger():
                 self.running=False
 
 
-    
 
-        keys=pygame.key.get_pressed()
-        if keys[pygame.K_w]:
-            self.player_pos.y-=300*self.dt
-        if keys[pygame.K_s]:
-            self.player_pos.y+=300*self.dt
-        if keys[pygame.K_a]:
-            self.player_pos.x-=300*self.dt
-        if keys[pygame.K_d]:
-            self.player_pos.x+=300*self.dt
-
-        #pygame.display.flip()
-
-        #dt=clock.tick(60)/1000
 
     def update(Self):
         pass
