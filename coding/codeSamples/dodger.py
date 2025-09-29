@@ -78,7 +78,7 @@ class Enemy(pygame.sprite.Sprite):
 
     def move(self):
         self.rect.move_ip(0,10)
-        if self.rect.bottom > 600):
+        if self.rect.bottom > 600:
             self.rect
 
     def draw(self, surface):
