@@ -20,7 +20,7 @@ class Dodger():
                 self.running=False
 
 
-    
+        print(self.dt)    
 
         keys=pygame.key.get_pressed()
         if keys[pygame.K_w]:

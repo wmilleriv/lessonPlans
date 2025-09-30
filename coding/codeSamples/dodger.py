@@ -14,62 +14,63 @@ RED=(255,0,0)
 
 DISPLAY_SURFACE = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 DISPLAY_SURFACE.fill(PURPLE)
-pygame.display.set.caption("Dodger")
+pygame.display.set_caption("Dodger")
 
-class Player(ipygame.sprite.Sprite):
+class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         self.image=pygame.Surface((80,80))
         self.pos=pygame.Vector2(self.window.get_width()/2, self.window.get_height()/2)
         pygame.draw.circle(self.image,PURPLE,self.pos, 40)
+        self.dt=0
 
     def update(self):
 
         keys=pygame.key.get_pressed()
         if keys[pygame.K_w]:
-            self.pos.y-=5
+            self.pos.y-=300*self.dt
         if keys[pygame.K_s]:
-            self.pos.y+=5
+            self.pos.y+=300*self.dt
         if keys[pygame.K_a]:
-            self.pos.x-=5
+            self.pos.x-=300*self.dt
         if keys[pygame.K_d]:
-            self.pos.x+=5
+            self.pos.x+=300*self.dt
 
 
 
-class Dodger():
+#class Dodger():
 
-    def __init__(self):
-        pygame.init()
-        self.window = pygame.display.set_mode((1280,720))
-        self.clock=pygame.time.Clock()
-        self.running=True
-        self.dt=0
-        self.player_pos=pygame.Vector2(self.window.get_width()/2, self.window.get_height()/2)
+#    def __init__(self):
+#        pygame.init()
+#        self.window = pygame.display.set_mode((1280,720))
+#        self.clock=pygame.time.Clock()
+#        self.running=True
+#        self.dt=0
+#        self.player_pos=pygame.Vector2(self.window.get_width()/2, self.window.get_height()/2)
 
-    def processInput(self):
+#    def processInput(self):
 
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                self.running=False
-
-
+#        for event in pygame.event.get():
+#            if event.type == pygame.QUIT:
+#                self.running=False
 
 
-    def update(Self):
-        pass
 
-    def render(self):
-        self.window.fill("purple")
-        pygame.draw.circle(self.window, "red", self.player_pos, 40)
-        pygame.display.update()
 
-    def run(self):
-        while self.running:
-            self.processInput()
-            self.update()
-            self.render()
-            self.dt=self.clock.tick(60)/1000
+#    def update(Self):
+#        pass
+
+#    def render(self):
+#        self.window.fill("purple")
+#        pygame.draw.circle(self.window, "red", self.player_pos, 40)
+#       pygame.display.update()
+
+#    def run(self):
+#        while self.running:
+#           self.processInput()
+#            self.update()
+#            self.render()
+#            self.dt=self.clock.tick(60)/1000
 
 class Enemy(pygame.sprite.Sprite):
     def __init__(self):
