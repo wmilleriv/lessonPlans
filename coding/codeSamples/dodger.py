@@ -11,16 +11,23 @@ SCREEN_HEIGHT = 720
 
 PURPLE=(200,0,255)
 RED=(255,0,0)
+GREEN=(0,255,0)
 
 DISPLAY_SURFACE = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 DISPLAY_SURFACE.fill(PURPLE)
 pygame.display.set_caption("Dodger")
 
+class Enemy(pygame.sprite.Sprite):
+    def __init__(self):
+        super.__init_()
+        self.image = pygame.draw.rect(DISPLAY_SURFACE, GREEN, (50,50,100,75))
+
+
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         self.image=pygame.Surface((80,80))
-        self.pos=pygame.Vector2(self.window.get_width()/2, self.window.get_height()/2)
+        self.pos=pygame.Vector2(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
         pygame.draw.circle(self.image,PURPLE,self.pos, 40)
         self.dt=0
 
@@ -72,18 +79,14 @@ class Player(pygame.sprite.Sprite):
 #            self.render()
 #            self.dt=self.clock.tick(60)/1000
 
-class Enemy(pygame.sprite.Sprite):
-    def __init__(self):
-        super().__init__()
-        self.image = pygame.draw.rect(surface, "green", pygame.Rect(0,0,5,10))
+p1=Player()
 
-    def move(self):
-        self.rect.move_ip(0,10)
-        if self.rect.bottom > 600:
-            self.rect
-
-    def draw(self, surface):
-        surface.blit(self.image, self.rect)
+while True:
+    for event in pygame.event.get():
+        if event.type==QUIT:
+            pygame.quit()
+            sys.exit()
+    p1.update()
 game=Dodger()
 game.run()
 pygame.quit()
