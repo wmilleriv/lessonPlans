@@ -27,6 +27,7 @@ class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         self.image=pygame.Surface((80,80))
+        self.rect = self.image.get_rect()
         self.pos=pygame.Vector2(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
         pygame.draw.circle(self.image,PURPLE,self.pos, 40)
         self.dt=0
@@ -42,7 +43,9 @@ class Player(pygame.sprite.Sprite):
             self.pos.x-=300*self.dt
         if keys[pygame.K_d]:
             self.pos.x+=300*self.dt
-
+    
+    def draw(self, surface):
+        surface.blit(self.image,self.rect)
 
 
 #class Dodger():
@@ -87,6 +90,9 @@ while True:
             pygame.quit()
             sys.exit()
     p1.update()
-game=Dodger()
-game.run()
-pygame.quit()
+
+    DISPLAY_SURFACE.fill(PURPLE)
+    p1.draw(DISPLAY_SURFACE)
+
+    pygame.display.update()
+    pygame.time.Clock().tick(FPS)
