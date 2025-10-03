@@ -29,7 +29,7 @@ class Player(pygame.sprite.Sprite):
         self.image=pygame.Surface((80,80))
         self.rect = self.image.get_rect()
         self.pos=pygame.Vector2(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
-        pygame.draw.circle(self.image,PURPLE,self.pos, 40)
+        pygame.draw.circle(self.image,RED,self.pos, 40)
         self.dt=0
 
     def update(self):
