@@ -18,9 +18,12 @@ DISPLAY_SURFACE.fill(PURPLE)
 pygame.display.set_caption("Dodger")
 
 class Enemy(pygame.sprite.Sprite):
-    def __init__(self):
-        super.__init_()
-        self.image = pygame.draw.rect(DISPLAY_SURFACE, GREEN, (50,50,100,75))
+    def __init__(self,color, length, width, x, y):
+        super().__init__()
+        self.color=color
+        self.image = pygame.Surface((length,width),pygame.SRCALPHA)
+        pygame.draw.rect(self.image, self.color, (length,width,x,y))
+        self.rect=self.image.get_rect(center=(x,y))
 
 
 class Player(pygame.sprite.Sprite):
@@ -49,6 +52,7 @@ class Player(pygame.sprite.Sprite):
 
 p1=Player(RED,20,SCREEN_WIDTH//2,SCREEN_HEIGHT//2)
 
+e=Enemy(GREEN,20,50,SCREEN_WIDTH//3,SCREEN_HEIGHT//3)
 while True:
     for event in pygame.event.get():
         if event.type==QUIT:
