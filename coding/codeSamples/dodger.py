@@ -24,65 +24,30 @@ class Enemy(pygame.sprite.Sprite):
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self, color, radius, x, y):
         super().__init__()
-        self.image=pygame.Surface((80,80))
-        self.rect = self.image.get_rect()
-        self.pos=pygame.Vector2(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
-        pygame.draw.circle(self.image,RED,self.pos, 40)
-        self.dt=0
+        self.color=color
+        self.radius=radius
+        self.image=pygame.Surface((radius*2,radius*2),pygame.SRCALPHA)
+        pygame.draw.circle(self.image,self.color, (radius,radius),self.radius)
+        self.rect=self.image.get_rect(center=(x,y))
 
     def update(self):
 
         keys=pygame.key.get_pressed()
         if keys[pygame.K_w]:
-            self.pos.y-=300*self.dt
+            self.rect.move_ip(0,-5)
         if keys[pygame.K_s]:
-            self.pos.y+=300*self.dt
+            self.rect.move_ip(0,5)
         if keys[pygame.K_a]:
-            self.pos.x-=300*self.dt
+            self.rect.move_ip(-5,0)
         if keys[pygame.K_d]:
-            self.pos.x+=300*self.dt
+            self.rect.move_ip(5,0)
     
     def draw(self, surface):
         surface.blit(self.image,self.rect)
 
-
-#class Dodger():
-
-#    def __init__(self):
-#        pygame.init()
-#        self.window = pygame.display.set_mode((1280,720))
-#        self.clock=pygame.time.Clock()
-#        self.running=True
-#        self.dt=0
-#        self.player_pos=pygame.Vector2(self.window.get_width()/2, self.window.get_height()/2)
-
-#    def processInput(self):
-
-#        for event in pygame.event.get():
-#            if event.type == pygame.QUIT:
-#                self.running=False
-
-
-
-
-#    def update(Self):
-#        pass
-
-#    def render(self):
-#        self.window.fill("purple")
-#        pygame.draw.circle(self.window, "red", self.player_pos, 40)
-#       pygame.display.update()
-
-#    def run(self):
-#        while self.running:
-#           self.processInput()
-#            self.update()
-#            self.render()
-#            self.dt=self.clock.tick(60)/1000
-
-p1=Player()
+p1=Player(RED,20,SCREEN_WIDTH//2,SCREEN_HEIGHT//2)
 
 while True:
     for event in pygame.event.get():
