@@ -1,7 +1,7 @@
 import sys
 import pygame
 from pygame.locals import *
-import random
+import random, time
 
 
 FPS=60
@@ -12,6 +12,8 @@ SCREEN_HEIGHT = 720
 PURPLE=(200,0,255)
 RED=(255,0,0)
 GREEN=(0,255,0)
+
+SPEED=5
 
 DISPLAY_SURFACE = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 DISPLAY_SURFACE.fill(PURPLE)
@@ -41,7 +43,7 @@ class Player(pygame.sprite.Sprite):
         pygame.draw.circle(self.image,self.color, (radius,radius),self.radius)
         self.rect=self.image.get_rect(center=(x,y))
 
-    def update(self):
+    def move(self):
 
         keys=pygame.key.get_pressed()
         if keys[pygame.K_w]:
@@ -57,19 +59,42 @@ class Player(pygame.sprite.Sprite):
         surface.blit(self.image,self.rect)
 
 p1=Player(RED,20,SCREEN_WIDTH//2,SCREEN_HEIGHT//2)
+e=Enemy(GREEN,10,30,SCREEN_WIDTH//2,SCREEN_HEIGHT//3)
 
-e=Enemy(GREEN,10,30,SCREEN_WIDTH//3,SCREEN_HEIGHT//3)
+enemies=pygame.sprite.Group()
+enemies.add(e)
+all_sprites=pygame.sprite.Group()
+all_sprites.add(p1)
+all_sprites.add(e)
+
+INCREASE_SPEED = pygame.USEREVENT+1
+pygame.time.set_timer(INCREASE_SPEED,1000)
+
 while True:
     for event in pygame.event.get():
+        if event.type==INCREASE_SPEED:
+            SPEED+=2
         if event.type==QUIT:
             pygame.quit()
             sys.exit()
-    p1.update()
-    e.move()
 
     DISPLAY_SURFACE.fill(PURPLE)
-    p1.draw(DISPLAY_SURFACE)
-    e.draw(DISPLAY_SURFACE)
+
+    for entity in all_sprites:
+        DISPLAY_SURFACE.blit(entity.image, entity.rect)
+        entity.move()
+        entity.draw(DISPLAY_SURFACE)
+
+    #collision detection
+    if pygame.sprite.spritecollideany(p1, enemies):
+        DISPLAY_SURFACE.fill(RED)
+        pygame.display.update()
+        for entity in all_sprites:
+            entity.kill()
+            time.sleep(2)
+            pygame.quit()
+            sys.exit()
+
 
     pygame.display.update()
     pygame.time.Clock().tick(FPS)
