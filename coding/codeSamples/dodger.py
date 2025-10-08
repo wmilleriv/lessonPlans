@@ -28,7 +28,10 @@ class Enemy(pygame.sprite.Sprite):
         self.rect.topleft=(x,y)
 
     def move(self):
-        self.rect.move_ip(0,10)
+        if self.rect.width>self.rect.height:
+            self.rect.move_ip(0,10)
+        else:
+            self.rect.move_ip(10,0)
 
     def draw(self, surface):
         surface.blit(self.image, self.rect)
@@ -59,13 +62,19 @@ class Player(pygame.sprite.Sprite):
         surface.blit(self.image,self.rect)
 
 p1=Player(RED,20,SCREEN_WIDTH//2,SCREEN_HEIGHT//2)
-e=Enemy(GREEN,10,30,SCREEN_WIDTH//2,SCREEN_HEIGHT//3)
 
-enemies=pygame.sprite.Group()
-enemies.add(e)
 all_sprites=pygame.sprite.Group()
-all_sprites.add(p1)
-all_sprites.add(e)
+enemies=pygame.sprite.Group()
+
+def addEnemy(all_sprites,enemies): 
+    eVert=Enemy(GREEN,10,30,0,random.randint(40,SCREEN_WIDTH-40))
+    eHorizontal=Enemy(GREEN,30,10,random.randint(40,SCREEN_HEIGHT-40),0)
+    
+    enemies.add(eVert)
+    enemies.add(eHorizontal)
+    all_sprites.add(p1)
+    all_sprites.add(eVert)
+    all_sprites.add(eHorizontal)
 
 INCREASE_SPEED = pygame.USEREVENT+1
 pygame.time.set_timer(INCREASE_SPEED,1000)
@@ -74,6 +83,7 @@ while True:
     for event in pygame.event.get():
         if event.type==INCREASE_SPEED:
             SPEED+=2
+            addEnemy(all_sprites,enemies)
         if event.type==QUIT:
             pygame.quit()
             sys.exit()
